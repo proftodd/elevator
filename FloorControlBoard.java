@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class FloorControlBoard extends JPanel {
+   private Color currentColor = Color.white;
+
    public Dimension getPreferredSize()
    {
       return new Dimension( 120, 67 );
@@ -13,7 +15,21 @@ public class FloorControlBoard extends JPanel {
    {
       super.paintComponent( g );
       g.setColor( Color.black );
-      g.drawRect( 22, 22, 22, 22 );
-      g.drawOval( 26, 26, 14, 14 );
+      g.drawRect( 22, 22, 28, 28 );
+      g.drawOval( 28, 28, 16, 16 );
+      g.setColor( currentColor );
+      g.fillOval( 29, 29, 14, 14 );
+   }
+
+   public void activateLight()
+   {
+      currentColor = Color.yellow;
+      repaint();
+   }
+
+   public void deactivateLight()
+   {
+      currentColor = Color.white;
+      repaint();
    }
 }

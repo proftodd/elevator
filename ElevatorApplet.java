@@ -8,6 +8,11 @@ public class ElevatorApplet extends JApplet implements ActionListener {
    private Container container;
    private GridBagLayout gbLayout;
    private GridBagConstraints gbConstraints;
+   public ClockTimer clock;
+   public FloorCanvas floor[];
+   public FloorControlBoard fcb[];
+   public ElevatorCanvas elevator;
+   public ElevatorBoard eb;
    public JTextArea output;
    public JScrollPane scroller;
    private JButton f1, f2;
@@ -25,11 +30,17 @@ public class ElevatorApplet extends JApplet implements ActionListener {
       gbConstraints.weightx = 1;
       gbConstraints.weighty = 1;
 
-      ClockTimer clock = new ClockTimer();
+      gbConstraints.weightx = 1;
+      gbConstraints.weighty = 1;
+      output = new JTextArea( 15, 35 );
+      scroller = new JScrollPane( output );
+      addComponent( scroller, ( FLOORS + 1 ), 0, 4, 1 );
+
+      clock = new ClockTimer( output );
       clock.setBackground( Color.white );
 
-      FloorCanvas floor[] = new FloorCanvas[ ( FLOORS + 1 ) ];
-      FloorControlBoard fcb[] = new FloorControlBoard[ ( FLOORS + 1 ) ];
+      floor = new FloorCanvas[ ( FLOORS + 1 ) ];
+      fcb = new FloorControlBoard[ ( FLOORS + 1 ) ];
       for ( int i = 1; i <= FLOORS; i++ ) {
          floor[ i ] = new FloorCanvas();
          floor[ i ].setBackground( Color.white );
@@ -37,24 +48,24 @@ public class ElevatorApplet extends JApplet implements ActionListener {
          fcb[ i ].setBackground( Color.white );
       }
 
-      ElevatorCanvas elevator = new ElevatorCanvas();
+      elevator = new ElevatorCanvas();
       elevator.setBackground( Color.white );
 
-      ElevatorControlBoard eb = new ElevatorControlBoard();
+      eb = new ElevatorBoard( ( FLOORS + 1 ) );
       eb.setBackground( Color.white );
 
       gbConstraints.fill = GridBagConstraints.BOTH;
       addComponent( clock, 0, 0, 1, FLOORS );
-      for ( int i = 1; i <= FLOORS; i++ ) {
+      for ( int i = FLOORS; i >= 1; i-- ) {
          addComponent( floor[ i ], ( i - 1 ), 1, 1, 1 );
       }
       addComponent( elevator, 0, 2, 1, FLOORS );
 
       JPanel controlButtonPanel = new JPanel();
       controlButtonPanel.setLayout( new GridLayout( ( FLOORS + 1 ), 1 ) );
-      controlButtonPanel.add( fcb[ 1 ] );
-      controlButtonPanel.add( eb );
       controlButtonPanel.add( fcb[ 2 ] );
+      controlButtonPanel.add( eb );
+      controlButtonPanel.add( fcb[ 1 ] );
       addComponent( controlButtonPanel, 0, 3, 1, FLOORS );
 
       gbConstraints.weightx = 0;
@@ -69,13 +80,7 @@ public class ElevatorApplet extends JApplet implements ActionListener {
       addPersonButtonPanel.add( f2 );
       addComponent( addPersonButtonPanel, FLOORS, 0, 4, 1 );
 
-      gbConstraints.weightx = 1;
-      gbConstraints.weighty = 1;
-      output = new JTextArea( 15, 35 );
-      scroller = new JScrollPane( output );
-      addComponent( scroller, ( FLOORS + 1 ), 0, 4, 1 );
-
-      b = new Building( FLOORS, output );
+      b = new Building( this, FLOORS, clock, output );
    }
 
    //addComponent is programmer defined
@@ -98,8 +103,13 @@ public class ElevatorApplet extends JApplet implements ActionListener {
    {
       if ( e.getSource() == f1 ) {
          b.createPerson( 1, 2 );
-      } else {
+      } else if ( e.getSource() == f2 ) {
          b.createPerson( 2, 1 );
       }
+   }
+
+   public void stop() {
+      b.elevator = null;
+      for ( int i = 0; i < b.personPosition.length; i++ ) { b.personPosition[ i ] = null; }
    }
 }

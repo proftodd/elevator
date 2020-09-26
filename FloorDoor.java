@@ -3,27 +3,27 @@
 import javax.swing.JTextArea;
 
 public class FloorDoor extends Door {
-   private int floor;
+   public Floor floor;
 
-   public FloorDoor( int f, boolean io, JTextArea o )
+   public FloorDoor( Floor f, JTextArea o )
    {
-      super( io, o );
-      setFloor( f );
+      super( o );
+      floor = f;
    }
-
-   public void setFloor( int f ) { floor = f; }
 
    public void open()
    {
       setOpen( true );
-      super.output.append( "\nFLOORDOOR on FLOOR " + floor + " opens." );
+      floor.floorLight.activateFloorLight();
+      floor.floorBell.ringFloorBell();
+      super.output.append( "\nFLOORDOOR on FLOOR " + floor.getFloor() + " opens." );
+      floor.callButton.resetButton();
    }
 
    public void close()
    {
       setOpen( false );
-      super.output.append( "\nFLOORDOOR on FLOOR " + floor + " closes." );
+      floor.floorLight.deactivateFloorLight();
+      super.output.append( "\nFLOORDOOR on FLOOR " + floor.getFloor() + " closes." );
    }
-
-   public int getFloor() { return floor; }
 }

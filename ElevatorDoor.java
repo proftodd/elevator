@@ -4,10 +4,7 @@ import javax.swing.JTextArea;
 
 public class ElevatorDoor extends Door {
 
-   public ElevatorDoor( boolean io, JTextArea o )
-   {
-      super( io, o );
-   }
+   public ElevatorDoor( JTextArea o ) { super( o ); }
 
    public void open()
    {

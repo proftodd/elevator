@@ -3,14 +3,10 @@
 import javax.swing.JTextArea;
 
 public abstract class Door {
-   private boolean openState;
+   private boolean openState = false;
    public JTextArea output;
 
-   public Door( boolean io, JTextArea o )
-   {
-      setOpen( io );
-      output = o;
-   }
+   public Door( JTextArea o ) { output = o; }
 
    public abstract void open();
    public abstract void close();
