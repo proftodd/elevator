@@ -8,7 +8,9 @@ public class Elevator extends Thread {
    private int currentFloor, destFloor;
    public DestButton destButton[];
    public ElevatorDoor elevatorDoor;
+   public ElevatorCanvas canvas;
    private boolean occupied;
+   private int direction;
    public ElevatorApplet applet;
    public JTextArea output;
 
@@ -24,7 +26,10 @@ public class Elevator extends Thread {
       for ( int i = 1; i <= FLOORS; i++ ) {
          destButton[ i ] = new DestButton( building, i, applet.eb, output );
       }
-      elevatorDoor = new ElevatorDoor( output );
+      elevatorDoor = new ElevatorDoor( applet.eCanvas, output );
+      canvas = applet.eCanvas;
+      applet.clock.registerElevator( this );
+      applet.clock.registerECanvas( canvas );
    }
 
    public void run()
@@ -65,6 +70,7 @@ public class Elevator extends Thread {
 
    public void moveElevator( int destination )
    {
+      direction = ( destination - currentFloor ) > 0 ? -1 : 1;
       String someOutput = "\nELEVATOR moving from FLOOR " + currentFloor;
       currentFloor = destination;
       someOutput += " to FLOOR " + currentFloor;
@@ -78,11 +84,21 @@ public class Elevator extends Thread {
       }
    }
 
-   public void setOccupied( boolean occ )
+   public void setOccupied( Person p )
    {
-      occupied = occ;
-      output.append( "\nThe ELEVATOR is " + ( occupied ? "occupied." : "not occupied." ) );
+      occupied = true;
+      canvas.addPerson( p );
+      output.append( "\nThe ELEVATOR is occupied." );
+   }
+
+   public void setUnoccupied()
+   {
+      occupied = false;
+      canvas.removePerson();
+      output.append( "\nThe ELEVATOR is not occupied." );
    }
 
    public int getCurrentFloor() { return currentFloor; }
+
+   public int getDirection() { return direction; }
 }

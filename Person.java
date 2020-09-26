@@ -3,33 +3,68 @@
 import javax.swing.*;
 
 public class Person extends Thread {
-   int currentFloor, destFloor;
-   Building building;
-   JTextArea output;
+   private int currentFloor, destFloor, personX, personY, index;
+   private ImageIcon personIcon;
+   private Building building;
+   private JTextArea output;
+   private boolean arriving, departing, riding, finished;
 
-   public Person( String threadGroupName, Building b, JTextArea o, int c, int d )
+   public Person( Building b, JTextArea o, int c, int d, int x, int y, int i )
    {
-      super( threadGroupName );
       building = b;
       output = o;
       currentFloor = c;
       destFloor = d;
+      personX = x;
+      personY = y;
+      index = i;
+      personIcon = new ImageIcon( getClass().getResource(
+         "images/person" + (index > 9 ? "" : "0") + index + ".gif"
+      ) );
+      arriving = true;
+      departing = false;
+      riding = false;
+      finished = false;
    }
 
    public void run()
    {
       output.append( "\nNew PERSON created. Current FLOOR = " + currentFloor + 
                      " Destination FLOOR = " + destFloor );
-      while( true ) {
+      while( !finished ) {
          try {
-            sleep( 500 );
-         } catch ( InterruptedException e ) {}
-         if( building.floor[ currentFloor ].floorDoor.isOpen() ) {
-            boardElevator();
-            break;
-         } else {
-            if ( !building.floor[ currentFloor ].callButton.isLit() ) {
-               building.floor[ currentFloor ].callButton.pressButton();
+            sleep( 20 );
+         } catch( InterruptedException e ) {}
+         if( arriving ) {
+            if( personX < building.floor[ currentFloor ].canvas.getWidth() - 20 ) {
+               personX++;
+               building.floor[ currentFloor ].canvas.paintArrivingPerson( this );
+            } else {
+               if( building.floor[ currentFloor ].floorDoor.isOpen() ) {
+                  building.floor[ currentFloor ].canvas.eraseArrivingPerson();
+                  boardElevator();
+               } else {
+                  if ( !building.floor[ currentFloor ].callButton.isLit() ) {
+                     building.floor[ currentFloor ].callButton.pressButton();
+                  }
+               }
+            }
+         }
+         if( riding ) {
+            if( building.elevator.elevatorDoor.isOpen() &&
+                building.elevator.getCurrentFloor() == destFloor ) {
+               exitElevator();
+            }
+         }
+         if( departing ) {
+           if( personX > 20 ) {
+               personX--;
+               building.floor[ destFloor ].canvas.paintDepartingPerson( this );
+            } else {
+               departing = false;
+               finished = true;
+               building.floor[ destFloor ].canvas.eraseDepartingPerson();
+               output.append( "\n***END PERSON***" );
             }
          }
       }
@@ -37,26 +72,31 @@ public class Person extends Thread {
 
    public void boardElevator()
    {
-      building.personPosition[ 0 ] = this;
-      building.floor[ currentFloor ].setNumPersons( 
-         building.floor[ currentFloor ].getNumPersons() - 1
-      );
+      arriving = false;
+      riding = true;
       output.append( "\nPERSON boards ELEVATOR." );
-      building.elevator.setOccupied( true );
+      building.floor[ currentFloor ].enableButton();
+      building.elevator.setOccupied( this );
       building.elevator.destButton[ destFloor ].pressButton();
-      while( true ) {
-         if( building.elevator.elevatorDoor.isOpen() &&
-             building.elevator.getCurrentFloor() == destFloor ) {
-            exitElevator();
-            break;
-         }
-      }
+      personX = building.elevator.canvas.getPersonX();
+      personY = building.elevator.canvas.getPersonY();
    }
 
    public void exitElevator()
    {
+      riding = false;
+      departing = true;
       output.append( "\nPERSON exits ELEVATOR." );
-      building.elevator.setOccupied( false );
-      output.append( "\n***END PERSON***" );
+      building.elevator.setUnoccupied();
+      personX = building.floor[ destFloor ].canvas.getWidth();
+      personY = building.floor[ destFloor ].canvas.getPersonY();
    }
+
+   public ImageIcon getImage() { return personIcon; }
+
+   public int getX() { return personX; }
+
+   public int getY() { return personY; }
+
+   public void setY( int y ) { personY = y; }
 }

@@ -1,17 +1,20 @@
 // Elevator Simulator: ElevatorBoard.java
 // Customized JPanel class to show the elevator buttons and floor bell
+import java.applet.Applet;
 import java.awt.*;
 import javax.swing.*;
 
-public class ElevatorBoard extends JPanel {
+public class ElevatorControlBoard extends JPanel {
    private Color currentColor[];
    private final int FLOORS;
+   private ImageIcon bell;
 
-   public ElevatorBoard( int f )
+   public ElevatorControlBoard( int f )
    {
       FLOORS = f;
       currentColor = new Color[ ( FLOORS + 1 ) ];
       for ( int i = 1; i <= FLOORS; i++ ) { currentColor[ i ] = Color.white; }
+      bell = new ImageIcon( getClass().getResource( "images/bell.gif" ) );
    }
 
    public Dimension getPreferredSize()
@@ -30,14 +33,15 @@ public class ElevatorBoard extends JPanel {
          g.setColor( currentColor[ i ] );
          g.fillOval( 29, 12 + 28 * ( FLOORS - i - 1 ), 14, 14 );
       }
+      bell.paintIcon( this, g, 70, 16 );
    }
 
-   public void activateLight( int f ) {
+   public void activateButton( int f ) {
       currentColor[ f ] = Color.yellow;
       repaint();
    }
 
-   public void deactivateLight( int f ) {
+   public void deactivateButton( int f ) {
       currentColor[ f ] = Color.white;
       repaint();
    }

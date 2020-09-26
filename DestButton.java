@@ -17,18 +17,18 @@
 //       Returns whether the button is lit or not. Called by the Elevator.
 // Method Calls Sent to Other Classes:
 //    moveElevator() to Elevator
-//    activateLight() to ElevatorBoard
-//    deactivateLight() to ElevatorBoard
+//    activateButton() to ElevatorBoard
+//    deactivateButton() to ElevatorBoard
 import javax.swing.*;
 
 public class DestButton {
    public Building building;
    public final int FLOOR;
-   public ElevatorBoard board;
+   public ElevatorControlBoard board;
    public JTextArea output;
    public boolean lit;
 
-   public DestButton( Building b, int f, ElevatorBoard eb, JTextArea o )
+   public DestButton( Building b, int f, ElevatorControlBoard eb, JTextArea o )
    {
       building = b;
       FLOOR = f;
@@ -41,7 +41,7 @@ public class DestButton {
    {
       setLit( true );
       output.append( "\nDESTBUTTON for FLOOR " + FLOOR + " is pushed." );
-      board.activateLight( FLOOR );
+      board.activateButton( FLOOR );
       building.setElevatorDest( FLOOR );
    }
 
@@ -49,7 +49,7 @@ public class DestButton {
    {
       if ( lit ) {
          setLit( false );
-         board.deactivateLight( FLOOR );
+         board.deactivateButton( FLOOR );
          output.append( "\nDESTBUTTON for FLOOR " + FLOOR + " is turned off." );
       }
    }

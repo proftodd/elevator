@@ -5,6 +5,8 @@ import javax.swing.*;
 
 public class ClockTimer extends JPanel implements Runnable {
    private boolean ticking;
+   private Elevator elevator;
+   private ElevatorCanvas elevatorCanvas;
    private JTextArea output;
    private int count;
    private Thread t;
@@ -24,7 +26,7 @@ public class ClockTimer extends JPanel implements Runnable {
       super.paintComponent( g );
       g.setColor( Color.black );
       g.drawOval( 5, 5, 70, 70 );
-      g.drawLine( 40, 40, 40, 5 );
+      g.drawLine( 40, 40, getTimerX(), getTimerY() );
    }
 
    public void run()
@@ -35,6 +37,7 @@ public class ClockTimer extends JPanel implements Runnable {
             t.sleep( 50 );
          } catch ( InterruptedException e ) {}
          if ( ticking ) {
+           elevatorCanvas.moveDrawing( elevator.getDirection() );
            if ( ++count == 199 ) {
               count = 0;
               output.append( "\nCLOCKTIMER has completed one cycle." );
@@ -48,4 +51,20 @@ public class ClockTimer extends JPanel implements Runnable {
    public void setTicking( boolean t ) { ticking = t; }
 
    public boolean isTicking() { return ticking; }
+
+   public int getCount() { return count; }
+
+   private int getTimerX()
+   {
+     return 40 + (int) ( 35 * Math.sin( Math.PI / 100 * count ) );
+   }
+
+   private int getTimerY()
+   {
+     return 40 - (int) ( 35 * Math.cos( Math.PI / 100 * count ) );
+   }
+
+   public void registerElevator( Elevator e ) { elevator = e; }
+
+   public void registerECanvas( ElevatorCanvas ec ) { elevatorCanvas = ec; }
 }

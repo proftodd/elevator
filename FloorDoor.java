@@ -4,11 +4,13 @@ import javax.swing.JTextArea;
 
 public class FloorDoor extends Door {
    public Floor floor;
+   private FloorCanvas canvas;
 
-   public FloorDoor( Floor f, JTextArea o )
+   public FloorDoor( Floor f, FloorCanvas fc, JTextArea o )
    {
       super( o );
       floor = f;
+      canvas = fc;
    }
 
    public void open()
@@ -16,6 +18,7 @@ public class FloorDoor extends Door {
       setOpen( true );
       floor.floorLight.activateFloorLight();
       floor.floorBell.ringFloorBell();
+      canvas.setOpen( true );
       super.output.append( "\nFLOORDOOR on FLOOR " + floor.getFloor() + " opens." );
       floor.callButton.resetButton();
    }
@@ -24,6 +27,7 @@ public class FloorDoor extends Door {
    {
       setOpen( false );
       floor.floorLight.deactivateFloorLight();
+      canvas.setOpen( false );
       super.output.append( "\nFLOORDOOR on FLOOR " + floor.getFloor() + " closes." );
    }
 }

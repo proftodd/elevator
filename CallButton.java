@@ -40,7 +40,7 @@ public class CallButton {
    {
       setLit( true );
       output.append( "\nCALLBUTTON on FLOOR " + FLOOR + " is pushed." );
-      board.activateLight();
+      board.activateButton();
       building.setElevatorDest( FLOOR );
    }
 
@@ -48,7 +48,7 @@ public class CallButton {
    {
       if ( lit ) {
          setLit( false );
-         board.deactivateLight();
+         board.deactivateButton();
          output.append( "\nCALLBUTTON on FLOOR " + FLOOR + " is turned off." );
       }
    }
