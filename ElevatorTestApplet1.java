@@ -117,11 +117,11 @@ public class ElevatorTestApplet1 extends JApplet implements ActionListener {
       fl1 = new FloorLight( 1, output );
       fl2 = new FloorLight( 2, output );
 
-      db1 = new ElevatorButton( 1, output );
-      db2 = new ElevatorButton( 2, output );
+      db1 = new DestButton( null, 1, output );
+      db2 = new DestButton( null, 2, output );
 
-      cb1 = new ElevatorButton( 1, output );
-      cb2 = new ElevatorButton( 2, output );
+      cb1 = new CallButton( null, 1, output );
+      cb2 = new CallButton( null, 2, output );
   }
 
    public void actionPerformed( ActionEvent e )

@@ -72,11 +72,11 @@ public class ElevatorTestApplet2 extends JApplet implements ActionListener {
 
       c.add( thisPanel, BorderLayout.CENTER );
 
-      ed1 = new Door( output );
-      ed2 = new Door( output );
+      ed1 = new ElevatorDoor( false, output );
+      ed2 = new ElevatorDoor( false, output );
 
-      fd1 = new Door( output );
-      fd2 = new Door( output );
+      fd1 = new ElevatorDoor( false, output );
+      fd2 = new ElevatorDoor( false, output );
   }
 
    public void actionPerformed( ActionEvent e )
