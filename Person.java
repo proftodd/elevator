@@ -17,8 +17,8 @@ public class Person {
 
    public void begin()
    {
-      output.append( "\nNew person created. Current floor = " + currentFloor + 
-                     " Destination floor = " + destFloor );
+      output.append( "\nNew PERSON created. Current FLOOR = " + currentFloor + 
+                     " Destination FLOOR = " + destFloor );
       if ( building.floor[ currentFloor ].floorDoor.isOpen() ) {
          boardElevator();
       } else {
@@ -28,14 +28,14 @@ public class Person {
 
    public void boardElevator()
    {
-      output.append( "\nPerson boarding elevator." );
+      output.append( "\nPERSON boards ELEVATOR." );
       building.elevator.setOccupied( true );
       building.elevator.destButton[ destFloor ].pressButton();
    }
 
    public void exitElevator()
    {
-      output.append( "\nPerson exiting elevator." );
+      output.append( "\nPERSON exits ELEVATOR." );
       building.elevator.setOccupied( false );
       output.append( "\n\n***END PERSON***\n\n" );
    }

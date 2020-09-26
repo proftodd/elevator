@@ -16,13 +16,13 @@ public class FloorDoor extends Door {
    public void open()
    {
       setOpen( true );
-      super.output.append( "\nFloor Doors on floor " + floor + " open" );
+      super.output.append( "\nFLOORDOOR on FLOOR " + floor + " opens." );
    }
 
    public void close()
    {
       setOpen( false );
-      super.output.append( "\nFloor Doors on floor " + floor + " close" );
+      super.output.append( "\nFLOORDOOR on FLOOR " + floor + " closes." );
    }
 
    public int getFloor() { return floor; }

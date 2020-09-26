@@ -16,7 +16,7 @@ public class Floor {
       building = b;
       output = o;
       thisFloor = f;
-      floorDoor = new FloorDoor( thisFloor, ( ( thisFloor == 1 ) ? true : false ), output );
+      floorDoor = new FloorDoor( thisFloor, false, output );
       floorLight = new FloorLight( thisFloor, output );
       floorBell = new FloorBell( thisFloor, output );
       callButton = new CallButton( building.elevator, thisFloor, output );

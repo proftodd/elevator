@@ -12,8 +12,8 @@ public class DestButton extends ElevatorButton {
    public void pressButton()
    {
       setLit( true );
-      super.output.append( "\nDestination Button for floor " + targetFloor +
-                           " has been pushed." );
+      super.output.append( "\nDESTBUTTON for FLOOR " + targetFloor +
+                           " is pushed." );
       elevator.moveElevator( targetFloor );
    }
 
@@ -21,8 +21,8 @@ public class DestButton extends ElevatorButton {
    {
       if ( super.lit ) {
          setLit( false );
-         super.output.append( "\nDestination Button for floor " + targetFloor +
-                              " has turned off." );
+         super.output.append( "\nDESTBUTTON for FLOOR " + targetFloor +
+                              " is turned off." );
       }
    }
 }

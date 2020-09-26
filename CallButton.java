@@ -12,7 +12,7 @@ public class CallButton extends ElevatorButton {
    public void pressButton()
    {
       setLit( true );
-      super.output.append( "\nCall Button on floor " + targetFloor + " has been pushed." );
+      super.output.append( "\nCALLBUTTON on FLOOR " + targetFloor + " is pushed." );
       elevator.moveElevator( targetFloor );
    }
 
@@ -20,7 +20,7 @@ public class CallButton extends ElevatorButton {
    {
       if ( super.lit ) {
          setLit( false );
-         super.output.append( "\nCall Button on floor " + targetFloor + " has turned off." );
+         super.output.append( "\nCALLBUTTON on FLOOR " + targetFloor + " is turned off." );
       }
    }
 }

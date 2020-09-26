@@ -14,6 +14,6 @@ public class FloorBell {
 
    public void ringFloorBell()
    {
-      output.append( "\nFloor bell on floor " + floor + " rings." );
+      output.append( "\nFLOORBELL on FLOOR " + floor + " rings." );
    }
 }

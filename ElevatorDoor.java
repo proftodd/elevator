@@ -12,12 +12,12 @@ public class ElevatorDoor extends Door {
    public void open()
    {
       setOpen( true );
-      super.output.append( "\nElevator Doors open" );
+      super.output.append( "\nELEVATORDOOR opens." );
    }
 
    public void close()
    {
       setOpen( false );
-      super.output.append( "\nElevator Doors close" );
+      super.output.append( "\nELEVATORDOOR closes." );
    }
 }

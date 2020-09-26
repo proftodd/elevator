@@ -17,13 +17,13 @@ public class FloorLight {
    public void activateFloorLight()
    {
       lit = true;
-      output.append( "\nFloor Light on floor " + floor + " turns on." );
+      output.append( "\nFLOORLIGHT on FLOOR " + floor + " turns on." );
    }
 
    public void deactivateFloorLight()
    {
       lit = false;
-      output.append( "\nFloor Light on floor " + floor + " turns off." );
+      output.append( "\nFLOORLIGHT on FLOOR " + floor + " turns off." );
    }
 
    public boolean isOn()

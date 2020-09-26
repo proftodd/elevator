@@ -28,25 +28,36 @@ public class Elevator {
    public void moveElevator( int destination )
    {
       destFloor = destination;
-      building.floor[ currentFloor ].floorDoor.close();
-      elevatorDoor.close();
-      building.floor[ currentFloor ].floorLight.deactivateFloorLight();
-      building.floor[ destFloor ].floorLight.activateFloorLight();
-      elevatorDoor.open();
-      building.floor[ destFloor ].floorDoor.open();
-      building.floor[ destFloor ].callButton.resetButton();
-      destButton[ destFloor ].resetButton();
-      currentFloor = destFloor;
-      if ( occupied ) {
-         building.person.exitElevator();
-      } else {
+      if ( destFloor == currentFloor ) {
+         building.floor[ currentFloor ].floorDoor.open();
+         elevatorDoor.open();
+         building.floor[ currentFloor ].callButton.resetButton();
          building.person.boardElevator();
+      } else {
+         building.floor[ currentFloor ].floorDoor.close();
+         elevatorDoor.close();
+         building.floor[ currentFloor ].floorLight.deactivateFloorLight();
+         building.floor[ destFloor ].floorLight.activateFloorLight();
+         elevatorDoor.open();
+         building.floor[ destFloor ].floorDoor.open();
+         building.floor[ destFloor ].callButton.resetButton();
+         destButton[ destFloor ].resetButton();
+         currentFloor = destFloor;
+         if ( occupied ) {
+            building.person.exitElevator();
+            if ( !building.floor[ currentFloor ].callButton.isOn() ) {
+               elevatorDoor.close();
+               building.floor[ currentFloor ].floorDoor.close();
+            }
+         } else {
+            building.person.boardElevator();
+         }
       }
    }
 
    public void setOccupied( boolean occ )
    {
       occupied = occ;
-      output.append( "\nThe elevator is " + ( ( occupied ) ? "occupied" : "not occupied" ) );
+      output.append( "\nThe ELEVATOR is " + ( ( occupied ) ? "occupied." : "not occupied." ) );
    }
 }
