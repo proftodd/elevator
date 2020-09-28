@@ -11,25 +11,25 @@ public class Elevator extends Thread {
    public ElevatorCanvas canvas;
    private boolean occupied;
    private int direction;
-   public ElevatorApplet applet;
+   public ElevatorFrame frame;
    public JTextArea output;
 
-   public Elevator( Building b, ElevatorApplet ea, JTextArea o, int f )
+   public Elevator( Building b, ElevatorFrame frame, JTextArea o, int f )
    {
       building = b;
-      applet = ea;
+      this.frame = frame;
       output = o;
       FLOORS = f;
       currentFloor = 1;
       occupied = false;
       destButton = new DestButton[ ( FLOORS + 1 ) ];
       for ( int i = 1; i <= FLOORS; i++ ) {
-         destButton[ i ] = new DestButton( building, i, applet.eb, output );
+         destButton[ i ] = new DestButton( building, i, frame.eb, output );
       }
-      elevatorDoor = new ElevatorDoor( applet.eCanvas, output );
-      canvas = applet.eCanvas;
-      applet.clock.registerElevator( this );
-      applet.clock.registerECanvas( canvas );
+      elevatorDoor = new ElevatorDoor( frame.eCanvas, output );
+      canvas = frame.eCanvas;
+      frame.clock.registerElevator( this );
+      frame.clock.registerECanvas( canvas );
    }
 
    public void run()

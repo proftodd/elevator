@@ -3,7 +3,7 @@
 import javax.swing.*;
 
 public class Building {
-   public ElevatorApplet applet;
+   public ElevatorFrame frame;
    private final int FLOORS;
    public Floor floor[];
    public Elevator elevator;
@@ -11,16 +11,16 @@ public class Building {
    public JTextArea output;
    private int elevatorDest;
 
-   public Building( ElevatorApplet ea, int f, ClockTimer c, JTextArea o )
+   public Building( ElevatorFrame frame, int f, ClockTimer c, JTextArea o )
    {
-      applet = ea;
+      this.frame = frame;
       FLOORS = f;
       clock = c;
       output = o;
-      elevator = new Elevator( this, applet, output, FLOORS );
+      elevator = new Elevator( this, frame, output, FLOORS );
       floor = new Floor[ ( FLOORS + 1 ) ];
       for ( int i = 1; i <= FLOORS; i++ ) {
-         floor[ i ] = new Floor( this, applet, output, i );
+         floor[ i ] = new Floor( this, frame, output, i );
       }
       elevator.start();
    }

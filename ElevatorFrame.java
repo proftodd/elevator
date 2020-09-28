@@ -1,11 +1,10 @@
 // Elevator Simulator: ElevatorApplet.java
 // Driver applet to run the elevator simulator. Version 4.0
-import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ElevatorApplet extends JApplet implements ActionListener {
+public class ElevatorFrame extends JFrame implements ActionListener {
    private Container container;
    private GridBagLayout gbLayout;
    private GridBagConstraints gbConstraints;
@@ -20,7 +19,7 @@ public class ElevatorApplet extends JApplet implements ActionListener {
    public Building b;
    public static final int FLOORS = 2;
 
-   public void init()
+   public void createAndShowGui()
    {
       container = getContentPane();
       gbLayout = new GridBagLayout();
@@ -83,6 +82,10 @@ public class ElevatorApplet extends JApplet implements ActionListener {
       addComponent( addPersonButtonPanel, FLOORS, 0, 4, 1 );
 
       b = new Building( this, FLOORS, clock, output );
+
+      this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      this.setSize(new Dimension(700, 550));
+      this.setVisible(true);
    }
 
    //addComponent is programmer defined

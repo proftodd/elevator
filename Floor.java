@@ -10,23 +10,23 @@ public class Floor {
    public FloorLight floorLight;
    public FloorBell floorBell;
    public CallButton callButton;
-   public ElevatorApplet applet;
+   public ElevatorFrame frame;
    public FloorCanvas canvas;
    public JTextArea output;
    public Person p[];
    private Person departingPerson;
 
-   public Floor( Building b, ElevatorApplet ea, JTextArea o, int f )
+   public Floor( Building b, ElevatorFrame frame, JTextArea o, int f )
    {
       building = b;
-      applet = ea;
+      this.frame = frame;
       output = o;
       FLOOR = f;
-      floorDoor = new FloorDoor( this, applet.fCanvas[ FLOOR ], output );
-      floorLight = new FloorLight( FLOOR, applet.fcb[ FLOOR ], output );
+      floorDoor = new FloorDoor( this, frame.fCanvas[ FLOOR ], output );
+      floorLight = new FloorLight( FLOOR, frame.fcb[ FLOOR ], output );
       floorBell = new FloorBell( FLOOR, output );
-      callButton = new CallButton( building, FLOOR, applet.fcb[ FLOOR ], output );
-      canvas = applet.fCanvas[ FLOOR ];
+      callButton = new CallButton( building, FLOOR, frame.fcb[ FLOOR ], output );
+      canvas = frame.fCanvas[ FLOOR ];
       p = new Person[ 1 ];
    }
 
@@ -42,7 +42,7 @@ public class Floor {
 
    public int getRandomPerson() { return (int) ( Math.random() * 10 ) + 1; }
 
-   public void disableButton() { applet.f[ FLOOR ].setEnabled( false ); }
+   public void disableButton() { frame.f[ FLOOR ].setEnabled( false ); }
 
-   public void enableButton() { applet.f[ FLOOR ].setEnabled( true ); }
+   public void enableButton() { frame.f[ FLOOR ].setEnabled( true ); }
 }
