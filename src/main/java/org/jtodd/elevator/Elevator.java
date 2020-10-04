@@ -83,6 +83,11 @@ public class Elevator extends Thread {
       moving = true;
       building.clock.setTicking( true );
       while ( true ) {
+         try {
+            Thread.sleep( 20 );
+         } catch ( InterruptedException e ) {
+            e.printStackTrace();
+         }
          if ( !building.clock.isTicking() ) {
             arriveAtFloor();
             break;
