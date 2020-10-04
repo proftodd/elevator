@@ -53,7 +53,7 @@ public class ElevatorFrame extends JFrame implements ActionListener {
       eCanvas = new ElevatorCanvas();
       eCanvas.setBackground( Color.white );
 
-      eb = new ElevatorControlBoard( ( FLOORS + 1 ) );
+      eb = new ElevatorControlBoard( FLOORS );
       eb.setBackground( Color.white );
 
       gbConstraints.fill = GridBagConstraints.BOTH;

@@ -27,7 +27,7 @@ public class ElevatorControlBoard extends JPanel {
    {
       super.paintComponent( g );
       g.setColor( Color.black );
-      g.drawRect( 22, 5, 28, ( 28 * ( FLOORS - 1 ) ) );
+      g.drawRect( 22, 5, 28, ( 28 * FLOORS ) );
       for ( int i = 1; i <= FLOORS; i++ ) {
          g.setColor( Color.black );
          g.drawOval( 28, 11 + 28 * ( i - 1 ), 16, 16 );
